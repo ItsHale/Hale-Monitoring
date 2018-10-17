@@ -1,11 +1,54 @@
 language: csharp
 solution: Hale-Monitoring.sln
-before_script:
-  - nuget restore Hale-Monitoring.sln
-script:
-  - xbuild /p:Configuration=Release Hale-Monitoring.sln
-cache:
-  directories:
-    - packages
+matrix:
+  include:
+    # Agent
+    - name: "Build Agent"
+      stage: "Agent"
+      dotnet: 2.1
+      mono: none
+      install:
+        - dotnet restore
+      script:
+        - dotnet build -f netcoreapp2.1 -c Debug Backend/Hale.Agent/Hale.Agent.csproj
+  #  # Agent
+  #   - name: "Build Agent"
+  #     stage: "Agent"
+  #     dotnet: 2.1
+  #     mono: none
+  #     install: dotnet restore
+  #     script:
+  #       - dotnet build -f netcoreapp2.1 -c Debug Backend/Hale.Agent/Hale.Agent.csproj
+  #   - name: "Test Agent"
+  #     stage: "Agent"
+  #     mono: none
+  #     install: dotnet restore
+  #     script:
+  #       - echo "Not implemented yet"
+  #   # Server
+  #   - name: "Build Core"
+  #     stage: "Core"
+  #     dotnet: 2.1
+  #     mono: none
+  #     install: dotnet restore
+  #     script:
+  #       - dotnet build -f netcoreapp2.1 -c Debug Backend/Hale.Core/Hale.Core.csproj
+  #   - name: "Test Core"
+  #     stage: "Core"
+  #     mono: none
+  #     install: dotnet restore
+  #     script:
+  #       - echo "Not implemented yet"
+  #   # Frontend
+  #   - name: "Build Frontend"
+  #     stage: "Frontend"
+
+  #   - name: ".NET Core 2.1"
+  #     dotnet: 2.1
+  #     mono: none
+  #     install: dotnet restore
+  #     script:
+  #       - dotnet build -f netcoreapp2.1 -c Debug Backend/Hale.Agent/Hale.Agent.csproj
+  #       - dotnet build -f netcoreapp2.1 -c Debug Backend/Hale.Core/Hale.Core.csproj
 notifications:
   slack: itshale:zzA1c500hMvaht5WuURG7qob

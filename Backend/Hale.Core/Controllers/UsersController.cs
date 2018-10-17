@@ -1,137 +1,105 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Hale.Core.Models;
-using Hale.Core.Models.Users;
-using Hale.Core.Handlers;
-using Hale.Core.Utils;
-using NLog;
-using Hale.Core.Contexts;
-using System.Linq;
-using System.Data.Entity;
-using System.Security.Claims;
-
-namespace Hale.Core.Controllers
+﻿namespace Hale.Core.Controllers
 {
-    
-    /// <summary>
-    /// TODO: Add text here
-    /// </summary>
-    [RoutePrefix("api/v1/users")]
-    public class UsersController : ApiController
-    {
-        #region Constructors and declarations
-        private readonly Logger _log;
-        private readonly HaleDBContext db;
+    using Hale.Core.Model.Interfaces;
+    using Hale.Core.Model.Models;
+    using Hale.Core.Models.Users;
+    using Hale.Core.Services;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using NLog;
 
-        internal UsersController() : this(new HaleDBContext()) { }
-        internal UsersController(HaleDBContext context)
+    [Route("api/v1/users")]
+    public class UsersController : ProtectedApiController
+    {
+        private readonly Logger log = LogManager.GetCurrentClassLogger();
+        private readonly IUserService userService;
+
+        public UsersController()
+            : this(new UserService())
         {
-            db = context;
-            _log = LogManager.GetCurrentClassLogger();   
         }
-        #endregion
-        
+
+        public UsersController(IUserService userService)
+        {
+            this.userService = userService;
+        }
+
+        [HttpGet]
+        [Route("available")]
+        public IActionResult CheckIfAvailable(string username)
+        {
+            return this.Ok(this.userService.GetUsernameAvailable(username));
+        }
+
         /// <summary>
-        /// TODO: Add text here
+        /// Get details about a specific user by user id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize, HttpGet, Route("{id}")]
-        public IHttpActionResult Get(int id)
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult Get(int id)
         {
-            var user = db.Accounts.FirstOrDefault(u => u.Id == id);
-
+            var user = this.userService.GetUserById(id);
             if (user == null)
-                return NotFound();
+            {
+                return this.NotFound();
+            }
 
-            return Ok(user);
+            return this.Ok(user);
         }
 
         /// <summary>
         /// Get information about the currently logged in user
         /// </summary>
         /// <returns></returns>
-        [Authorize, HttpGet, Route("current")]
-        public IHttpActionResult GetCurrent()
+        [HttpGet]
+        [Route("current")]
+        public IActionResult GetCurrent()
         {
-            var user = db.Accounts.Single(x => x.UserName == _currentUsername);
-            return Ok(new
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
-            });
+            var currentUser = this.userService.GetUserByUserName(this.CurrentUsername);
+            return this.Ok(currentUser);
         }
 
         /// <summary>
-        /// TODO: Add text here
+        /// Get a list of users with reduced user details.
         /// </summary>
         /// <returns></returns>
-        [Authorize, HttpGet, Route("")]
-        public IHttpActionResult List()
+        [HttpGet]
+        [Route("")]
+        public IActionResult List()
         {
-            return Ok(db.Accounts.ToList());
+            var userList = this.userService.List();
+            return this.Ok(userList);
         }
 
         /// <summary>
-        /// TODO: Add text here
+        /// Create a new user
         /// </summary>
         /// <param name="userRequest"></param>
         /// <returns></returns>
-        [Authorize, HttpPost, Route("")]
-        public IHttpActionResult Create([FromBody] CreateAccountRequest userRequest)
+        [Route("")]
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Create([FromBody] CreateAccountRequestDTO userRequest)
         {
-            if (db.Accounts.Any(x => x.UserName == userRequest.UserName))
-                return InternalServerError();
-            else
-            {
-                var user = new Account
-                {
-                    UserName = userRequest.UserName,
-                    Password = BCrypt.Net.BCrypt.HashPassword(userRequest.Password, 5),
-                    FullName = userRequest.FullName
-                };
-
-                db.Accounts.Add(user);
-                db.SaveChanges();
-
-                return Ok();
-            }
+            var currentUser = this.userService.GetUserByUserName(this.CurrentUsername);
+            this.userService.CreateUser(userRequest, currentUser);
+            return this.Ok();
         }
 
         /// <summary>
-        /// TODO: Add text here
+        /// Update a user
         /// </summary>
         /// <param name="id"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        [Authorize, HttpPatch, Route("{id}")]
-        public IHttpActionResult Update(int id, [FromBody]Account user)
+        [HttpPatch]
+        [Route("{id}")]
+        public IActionResult Update(int id, [FromBody]UserDTO user)
         {
-            try {
-                db.Accounts.Attach(user);
-                db.SaveChanges();
-
-                return Ok();
-            }
-            catch (Exception x)
-            {
-                return InternalServerError(x);
-            }
-        }
-
-
-        private string _currentUsername
-        {
-            get
-            {
-                return Request.GetOwinContext().Authentication.User.Identities.First().Claims
-                    .First(claim => claim.Type == ClaimsIdentity.DefaultNameClaimType).Value;
-            }
+            this.userService.UpdateUser(id, user, this.CurrentUsername);
+            return this.Ok();
         }
     }
 }

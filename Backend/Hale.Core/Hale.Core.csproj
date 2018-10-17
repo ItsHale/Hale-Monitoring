@@ -1,34 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{15C782A0-DC99-4B73-B305-B8468DAD29AC}</ProjectGuid>
+    <TargetFrameworks>net471;netcoreapp2.1</TargetFrameworks>
     <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hale.Core</RootNamespace>
-    <AssemblyName>Hale.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
-    <AssemblyVersion>1.0.16332.667</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,6 +13,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\WebApiSwagger.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\..\AnalysisRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,433 +27,114 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\WebApiSwagger.XML</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BCrypt.Net, Version=0.1.5073.29922, Culture=neutral, PublicKeyToken=6bcd409ee6bc9292, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Humanizer, Version=2.1.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Humanizer.Core.2.1.0\lib\netstandard1.0\Humanizer.dll</HintPath>
-    </Reference>
-    <Reference Include="JsonApiNet, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\JsonApiNet.2.0.1.0\lib\net45\JsonApiNet.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="libnemesis, Version=4.0.16331.224, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\libnemesis.4.0.16331.224\lib\net45\libnemesis.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.OData.Core, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.OData.Core.6.15.0\lib\portable-net45+win+wpa81\Microsoft.OData.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.OData.Edm, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.OData.Edm.6.15.0\lib\portable-net45+win+wpa81\Microsoft.OData.Edm.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Cors, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Cors.3.0.1\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Diagnostics, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Diagnostics.3.0.1\lib\net45\Microsoft.Owin.Diagnostics.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.FileSystems, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.FileSystems.3.0.1\lib\net45\Microsoft.Owin.FileSystems.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Host.HttpListener.3.0.1\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Hosting, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Hosting.3.0.1\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.StaticFiles, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Owin.StaticFiles.3.0.1\lib\net45\Microsoft.Owin.StaticFiles.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Spatial, Version=6.15.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Spatial.6.15.0\lib\portable-net45+win+wpa81\Microsoft.Spatial.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NJsonApi, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NJsonApi.1.1.0.1\lib\net45\NJsonApi.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NJsonApi.Common, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NJsonApi.1.1.0.1\lib\net45\NJsonApi.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Npgsql, Version=3.1.6.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Npgsql.3.1.6\lib\net45\Npgsql.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Swashbuckle.Core.5.3.2\lib\net40\Swashbuckle.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Data.Services.Client" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Http.Owin, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Http.SelfHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.SelfHost.5.2.3\lib\net45\System.Web.Http.SelfHost.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.OData, Version=5.9.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.OData.5.9.1\lib\net45\System.Web.OData.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.ServiceProcess" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WebActivatorEx.2.1.0\lib\net40\WebActivatorEx.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="YamlDotNet, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\YamlDotNet.3.9.0\lib\net35\YamlDotNet.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <ProjectReference Include="..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj" />
+    <ProjectReference Include="..\Shared\Hale.Lib\Hale.Lib.csproj" />
+    <ProjectReference Include="..\Hale.Core.Data\Hale.Core.Data.csproj" />
+    <ProjectReference Include="..\Hale.Core.Model\Hale.Core.Model.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net471'">
+    <ProjectReference Include="..\Hale.MsiInterop\Hale.MsiInterop.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ConfigurationExtensions.cs" />
-    <Compile Include="Config\EnvironmentConfig.cs" />
-    <Compile Include="Database\HaleDBContext.cs" />
-    <Compile Include="Database\HaleDBConvention.cs" />
-    <Compile Include="Config\AgentSection.cs" />
-    <Compile Include="Config\ApiSection.cs" />
-    <Compile Include="Config\AppConfig.cs" />
-    <Compile Include="Config\DatabaseSection.cs" />
-    <Compile Include="Migrations\201608110031064_SchemaAndRenames.cs" />
-    <Compile Include="Migrations\201608110031064_SchemaAndRenames.Designer.cs">
-      <DependentUpon>201608110031064_SchemaAndRenames.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608131326525_AddNodesSchemaAndHosts.cs" />
-    <Compile Include="Migrations\201608131326525_AddNodesSchemaAndHosts.Designer.cs">
-      <DependentUpon>201608131326525_AddNodesSchemaAndHosts.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608131417256_PluralSchemasAddModules.cs" />
-    <Compile Include="Migrations\201608131417256_PluralSchemasAddModules.Designer.cs">
-      <DependentUpon>201608131417256_PluralSchemasAddModules.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608131705380_HostNullableLastConnected.cs" />
-    <Compile Include="Migrations\201608131705380_HostNullableLastConnected.Designer.cs">
-      <DependentUpon>201608131705380_HostNullableLastConnected.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608141440054_AddInfoRecord.cs" />
-    <Compile Include="Migrations\201608141440054_AddInfoRecord.Designer.cs">
-      <DependentUpon>201608141440054_AddInfoRecord.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608141511284_AddCheckRecords.cs" />
-    <Compile Include="Migrations\201608141511284_AddCheckRecords.Designer.cs">
-      <DependentUpon>201608141511284_AddCheckRecords.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608151708331_AddAgentConfigSet.cs" />
-    <Compile Include="Migrations\201608151708331_AddAgentConfigSet.Designer.cs">
-      <DependentUpon>201608151708331_AddAgentConfigSet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611261105192_UpdateAgentSchemas.cs" />
-    <Compile Include="Migrations\201611261105192_UpdateAgentSchemas.Designer.cs">
-      <DependentUpon>201611261105192_UpdateAgentSchemas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611270903328_AddAgentConfiguredStatus.cs" />
-    <Compile Include="Migrations\201611270903328_AddAgentConfiguredStatus.Designer.cs">
-      <DependentUpon>201611270903328_AddAgentConfiguredStatus.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611271503313_AddAgentHostIdentification.cs" />
-    <Compile Include="Migrations\201611271503313_AddAgentHostIdentification.Designer.cs">
-      <DependentUpon>201611271503313_AddAgentHostIdentification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611272004298_AddModifiedAndConfiguredByToHost.cs" />
-    <Compile Include="Migrations\201611272004298_AddModifiedAndConfiguredByToHost.Designer.cs">
-      <DependentUpon>201611272004298_AddModifiedAndConfiguredByToHost.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201702192117235_AddCommentsAndEmail.cs" />
-    <Compile Include="Migrations\201702192117235_AddCommentsAndEmail.Designer.cs">
-      <DependentUpon>201702192117235_AddCommentsAndEmail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Agent\Config.cs" />
-    <Compile Include="Models\Messages\LoginAttempt.cs" />
-    <Compile Include="Models\Messages\NewNodeComment.cs" />
-    <Compile Include="Models\Modules\CheckRecord.cs" />
-    <Compile Include="Models\Modules\InfoRecord.cs" />
-    <Compile Include="Models\Modules\Module.cs" />
-    <Compile Include="Models\Modules\Function.cs" />
-    <Compile Include="Models\Modules\Result.cs" />
-    <Compile Include="Models\Nodes\HostComment.cs" />
-    <Compile Include="Models\Users\CreateAccountRequest.cs" />
-    <Compile Include="Handlers\ModuleHandler.cs" />
-    <Compile Include="Handlers\Scheduler.CreateDistPackages.cs" />
-    <Compile Include="Handlers\Scheduler.cs" />
-    <Compile Include="Handlers\SqlHandler.cs" />
-    <Compile Include="Models\Modules\Checks\Check.cs" />
-    <Compile Include="Models\Modules\Checks\CheckDetail.cs" />
-    <Compile Include="Models\Modules\Checks\Metric.cs" />
-    <Compile Include="Models\Modules\Checks\Result.cs" />
-    <Compile Include="Models\Nodes\Host.cs" />
-    <Compile Include="Models\Nodes\HostDetail.cs" />
-    <Compile Include="Models\Nodes\HostResponseWrapper.cs" />
-    <Compile Include="Models\Nodes\Status.cs" />
-    <Compile Include="Models\Users\Account.cs" />
-    <Compile Include="Models\Users\AccountDetail.cs" />
-    <Compile Include="Models\Shared\Metadata.cs" />
-    <Compile Include="Formatting\JsonAPI.cs" />
-    <Compile Include="Formatting\JsonAPIContractResolver.cs" />
-    <Compile Include="Formatting\JsonAPIMediaTypeFormatter.cs" />
-    <Compile Include="Handlers\AgentDistHandler.cs" />
-    <Compile Include="Handlers\AgentHandler.cs" />
-    <Compile Include="Migrations\201608101900197_InitialCreate.cs" />
-    <Compile Include="Migrations\201608101900197_InitialCreate.Designer.cs">
-      <DependentUpon>201608101900197_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608101912190_UserFix.cs" />
-    <Compile Include="Migrations\201608101912190_UserFix.Designer.cs">
-      <DependentUpon>201608101912190_UserFix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608101934329_UserFix2.cs" />
-    <Compile Include="Migrations\201608101934329_UserFix2.Designer.cs">
-      <DependentUpon>201608101934329_UserFix2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608101938153_UserFix3.cs" />
-    <Compile Include="Migrations\201608101938153_UserFix3.Designer.cs">
-      <DependentUpon>201608101938153_UserFix3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608101947251_AddUserDetails.cs" />
-    <Compile Include="Migrations\201608101947251_AddUserDetails.Designer.cs">
-      <DependentUpon>201608101947251_AddUserDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608102302414_UniqueUsername.cs" />
-    <Compile Include="Migrations\201608102302414_UniqueUsername.Designer.cs">
-      <DependentUpon>201608102302414_UniqueUsername.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Utils\MsiInterop.cs" />
-    <Compile Include="Utils\ExceptionHandlingAttribute.cs" />
-    <Compile Include="Utils\StringResult.cs" />
-    <Compile Include="Handlers\ApiHandler.cs" />
-    <Compile Include="Controllers\AuthenticationController.cs" />
-    <Compile Include="Controllers\HostsController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="HaleCoreService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="HaleCoreService.Designer.cs">
-      <DependentUpon>HaleCoreService.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\SqlMapper.cs" />
-    <Compile Include="Utils\TraceLogger.cs" />
+    <PackageReference Include="BCrypt.Net-Next" Version="3.1.0" />
+    <PackageReference Include="libnemesis" Version="5.0.0" />
+    <!--
+    <PackageReference Include="Microsoft.AspNet.Cors" Version="5.2.3" />
+    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.1" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.3" />
+    <PackageReference Include="Microsoft.AspNet.OData" Version="5.9.1" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.3" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.3" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.3" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.OwinSelfHost" Version="5.2.3" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.SelfHost" Version="5.2.3" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.2.3" />
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.3" />
+    <PackageReference Include="Microsoft.OData.Core" Version="6.15.0" />
+    <PackageReference Include="Microsoft.OData.Edm" Version="6.15.0" />
+    <PackageReference Include="Microsoft.Owin" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Owin.Cors" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Owin.Diagnostics" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Owin.FileSystems" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Owin.Host.HttpListener" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Owin.Hosting" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Owin.Security" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Owin.SelfHost" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Owin.StaticFiles" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0.0" />
+    <PackageReference Include="Owin" Version="1.0" />
+    <PackageReference Include="NLog.Config" Version="4.3.5" />
+    <PackageReference Include="WebActivatorEx" Version="2.1.0" />
+    -->
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="NLog" Version="4.5.7" />
+    <PackageReference Include="Npgsql" Version="4.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.1" />
+    <PackageReference Include="Semver" Version="2.0.4" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+    <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.1" />
+    <PackageReference Include="YamlDotNet" Version="5.2.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceProcess" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <EmbeddedResource Include="Migrations\201608101900197_InitialCreate.resx">
-      <DependentUpon>201608101900197_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608101912190_UserFix.resx">
-      <DependentUpon>201608101912190_UserFix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608101934329_UserFix2.resx">
-      <DependentUpon>201608101934329_UserFix2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608101938153_UserFix3.resx">
-      <DependentUpon>201608101938153_UserFix3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608101947251_AddUserDetails.resx">
-      <DependentUpon>201608101947251_AddUserDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608102302414_UniqueUsername.resx">
-      <DependentUpon>201608102302414_UniqueUsername.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608110031064_SchemaAndRenames.resx">
-      <DependentUpon>201608110031064_SchemaAndRenames.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608131326525_AddNodesSchemaAndHosts.resx">
-      <DependentUpon>201608131326525_AddNodesSchemaAndHosts.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608131417256_PluralSchemasAddModules.resx">
-      <DependentUpon>201608131417256_PluralSchemasAddModules.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608131705380_HostNullableLastConnected.resx">
-      <DependentUpon>201608131705380_HostNullableLastConnected.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608141440054_AddInfoRecord.resx">
-      <DependentUpon>201608141440054_AddInfoRecord.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608141511284_AddCheckRecords.resx">
-      <DependentUpon>201608141511284_AddCheckRecords.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608151708331_AddAgentConfigSet.resx">
-      <DependentUpon>201608151708331_AddAgentConfigSet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611261105192_UpdateAgentSchemas.resx">
-      <DependentUpon>201611261105192_UpdateAgentSchemas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611270903328_AddAgentConfiguredStatus.resx">
-      <DependentUpon>201611270903328_AddAgentConfiguredStatus.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611271503313_AddAgentHostIdentification.resx">
-      <DependentUpon>201611271503313_AddAgentHostIdentification.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611272004298_AddModifiedAndConfiguredByToHost.resx">
-      <DependentUpon>201611272004298_AddModifiedAndConfiguredByToHost.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702192117235_AddCommentsAndEmail.resx">
-      <DependentUpon>201702192117235_AddCommentsAndEmail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="nemesis.yaml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="stylecop.json" />
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+    <PackageReference Include="Microsoft.AspNetCore.All">
+      <Version>2.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.App">
+      <Version>2.1.2</Version>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Hale.Lib.ModuleLoader\Hale.Lib.ModuleLoader.csproj">
-      <Project>{a9904f35-66fa-4296-92e3-15fa49d9cf1d}</Project>
-      <Name>Hale.Lib.ModuleLoader</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Shared\Hale.Lib\Hale.Lib.csproj">
-      <Project>{cf1e1001-e40f-40a8-b1e3-29feb471b2bd}</Project>
-      <Name>Hale.Lib</Name>
-    </ProjectReference>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net471'">
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
+    
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
+    <!-- Microsoft.AspNetCore.Authentication -->
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent Condition=" '$(OS)' != 'Unix' ">forfiles /P "$(SolutionDir)packages\Humanizer.1.37.7\lib\portable-win+net40+sl50+wp8+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10" /c "cmd /c if @isdir==TRUE rmdir /s/q @file" &amp;&amp; EXIT /B 0</PreBuildEvent>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent />
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <Import Project="..\BuildVersion.xml" Condition="Exists('..\BuildVersion.xml')" />
 </Project>

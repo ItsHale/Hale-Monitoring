@@ -1,63 +1,49 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Web.Http;
-using Hale.Core.Models.Messages;
-using Hale.Core.Models.Users;
-using Microsoft.Owin.Security;
-using Newtonsoft.Json;
-using NLog;
-using Microsoft.Owin;
-using Hale.Core.Models.Shared;
-using Hale.Core.Contexts;
-using System.Linq;
-
-namespace Hale.Core.Controllers
+﻿namespace Hale.Core.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Security.Claims;
+    using Hale.Core.Model.Interfaces;
+    using Hale.Core.Model.Models;
+    using Hale.Core.Models.Messages;
+    using Hale.Core.Services;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authentication;
+    using NLog;
+    using Microsoft.AspNetCore.Authorization;
+
     /// <summary>
     /// TODO: Add text here
     /// </summary>
-    [RoutePrefix("api/v1/authentication")]
-    public class AuthenticationController : ApiController
+    [Route("api/v1/authentication")]
+    public class AuthenticationController : ControllerBase
     {
+        private readonly Logger log;
+        private readonly IAuthService authService;
+        private readonly IUserService userService;
 
-        #region Constructors and declarations
-        private readonly Logger      _log;
-        private readonly HaleDBContext _db;
-
-        internal AuthenticationController() : this(new HaleDBContext()) { }
-
-        /// <summary>
-        /// TODO: Add text here
-        /// </summary>
-        /// <param name="context"></param>
-        public AuthenticationController(HaleDBContext context)
+        public AuthenticationController()
+            : this(new AuthService(), new UserService())
         {
-            _log = LogManager.GetCurrentClassLogger();
-            _db = context;
-        }
-        #endregion
-        #region Private Methods
-
-        private void CreateUserClaims(LoginAttempt attempt)
-        {
-            Request
-                .GetOwinContext()
-                .Authentication
-                .SignIn(
-                    new AuthenticationProperties()
-                    {
-                        IsPersistent = attempt.Persistent
-                    },
-                    new ClaimsIdentity(
-                        new[] {
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, "User"),
-                new Claim(ClaimsIdentity.DefaultNameClaimType, attempt.Username)
-                        }, "HaleCoreAuth")
-                    );
         }
 
-        #endregion
+        public AuthenticationController(IAuthService authService, IUserService userService)
+        {
+            this.log = LogManager.GetCurrentClassLogger();
+            this.authService = authService;
+            this.userService = userService;
+        }
+
+        internal string CurrentUsername => this.Request
+            .HttpContext
+            .User
+            .Identities
+            .First()
+            .Claims
+            .First(claim => claim.Type == ClaimsIdentity.DefaultNameClaimType)
+            .Value;
+
         /// <summary>
         /// Creates a claim on successful sign in.
         /// </summary>
@@ -65,50 +51,99 @@ namespace Hale.Core.Controllers
         /// <returns></returns>
         [Route("")]
         [HttpPost]
-        public IHttpActionResult Login([FromBody] LoginAttempt attempt)
+        public IActionResult Login([FromBody] LoginAttemptDTO attempt)
         {
-            var user = _db.Accounts.FirstOrDefault(x => x.UserName == attempt.Username);
-            if (user == null)
-                return Unauthorized();
-
-            var passwordAccepted = BCrypt.Net.BCrypt.Verify(attempt.Password, user.Password);
-
+            var passwordAccepted = this.authService.Authorize(attempt.Username, attempt.Password);
             if (!passwordAccepted)
-                return Unauthorized();
-
-            else {
-                CreateUserClaims(attempt);
-                return Ok();
+            {
+                return this.Unauthorized();
             }
+
+            this.CreateUserClaims(attempt);
+            return this.Ok();
+        }
+
+        [Route("admin")]
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminStatus()
+        {
+            return this.Ok();
         }
 
         /// <summary>
         /// TODO: Add text here
         /// </summary>
         /// <returns></returns>
-        [Route()]
         [HttpGet]
         [Authorize(Roles = "User")]
-        public IHttpActionResult Status()
+        public IActionResult Status()
         {
-            return Ok();
+            return this.Ok();
         }
 
         /// <summary>
         /// TODO: Add text here
         /// </summary>
         /// <returns></returns>
-        [Route()]
         [HttpDelete]
         [Authorize]
-        public IHttpActionResult Logout()
+        public IActionResult Logout()
         {
-            var context = Request.GetOwinContext();
-            context.Authentication.SignOut();
-            return Ok();
+            var context = this.Request.HttpContext;
+            context.SignOutAsync();
+            return this.Ok();
         }
 
+        [Route("activate")]
+        [HttpPost]
+        public IActionResult Activate([FromBody]ActivationAttemptDTO attempt)
+        {
+            var gotActivated = this.authService.Activate(attempt);
 
+            if (!gotActivated)
+            {
+                return this.Unauthorized(); // this is up for debate. any better suggestion? -SA 2017-08-10
+            }
 
+            return this.Ok();
+        }
+
+        [Route("change-password")]
+        [HttpPost]
+        [Authorize]
+        public IActionResult ChangePassword(PasswordDTO passwordChange)
+        {
+            var passwordAccepted = this.authService.Authorize(this.CurrentUsername, passwordChange.OldPassword);
+
+            if (!passwordAccepted)
+            {
+                return this.Unauthorized();
+            }
+
+            this.authService.ChangePassword(this.CurrentUsername, passwordChange.NewPassword);
+            return this.Ok();
+        }
+
+        private void CreateUserClaims(LoginAttemptDTO attempt)
+        {
+            var user = this.userService.GetUserByUserName(attempt.Username);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, "User"),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, attempt.Username)
+            };
+
+            if (user.IsAdmin)
+            {
+                claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, "Admin"));
+            }
+
+            this.Request
+                .HttpContext
+                .SignInAsync(
+                    new ClaimsPrincipal(new ClaimsIdentity(claims, "HaleCoreAuth")),
+                    new AuthenticationProperties() { IsPersistent = attempt.Persistent });
+        }
     }
 }

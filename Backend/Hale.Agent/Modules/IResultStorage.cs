@@ -1,26 +1,24 @@
-﻿using Hale.Lib.Modules;
-using Hale.Lib.Modules.Actions;
-using Hale.Lib.Modules.Checks;
-using Hale.Lib.Modules.Info;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hale.Agent.Modules
+﻿namespace Hale.Agent.Modules
 {
+    using System;
+    using Hale.Agent.Scheduler;
+    using Hale.Lib.Modules;
+    using Hale.Lib.Modules.Results;
+
     internal interface IResultStorage
     {
         void StoreResult(IModuleResultRecord record);
+
         void Persist();
+
         ResultRecordChunk Fetch(int maxRecords);
+
         void Clear(Guid[] uploaded);
     }
 
     internal static class ResultStorageExtensions
     {
-        public static void StoreResult(this IResultStorage rs, QueuedModuleTask task, ModuleFunctionResult result)
+        public static void StoreResult(this IResultStorage rs, QueuedModuleTask task, ModuleResultSet result)
         {
             rs.StoreResult(new ModuleResultRecord()
             {

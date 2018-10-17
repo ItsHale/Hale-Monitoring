@@ -1,18 +1,29 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Web.Http.Filters;
-
-namespace Hale.Core.Utils
+﻿namespace Hale.Core.Utils
 {
-    class ExceptionHandlingAttribute: ExceptionFilterAttribute
-    {
-        public override void OnException(HttpActionExecutedContext context)
-        {
-            // TODO(NM): Make exception handling a bit more sophisticated
+    using System;
+    using System.Net;
+    using System.Net.Http;
+    // using System.Web.Http.Filters;
+    using Hale.Core.Model.Models;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Filters;
+    using Newtonsoft.Json;
 
-            context.Response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
+    public class ExceptionHandlingAttribute : ExceptionFilterAttribute
+    {
+
+        public override void OnException(ExceptionContext context)
+        {
+            context.Result = new JsonResult(new ExceptionDTO
             {
-                Content = new StringContent(context.Exception.Message.ToString())
+                Message = context.Exception.Message,
+#if DEBUG
+                StackTrace = context.Exception.StackTrace.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
+#endif
+            })
+            {
+               StatusCode = StatusCodes.Status500InternalServerError,
             };
         }
     }
